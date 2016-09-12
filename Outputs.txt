@@ -1,0 +1,347 @@
+INPUT 1:
+MAIN
+{
+	INTEGER a;
+	INTEGER b;
+	INTEGER c;
+	a = 1;
+	b = 1 + a;
+	c = 8 - 3;
+	a = a + b + c + 1 + c + 9 + a + b + a;
+	PRINT a;
+	PRINT b;
+	PRINT c;
+}
+
+Code Output:
+#Prolog:
+.text
+.globl  main
+main:
+move  $fp  $sp #frame pointer will be start of active stack
+la  $a0  ProgStart
+li  $v0  4
+syscall
+#End of Prolog
+
+li  $t0  1
+sw  $t0  -12($fp)
+lw  $t0  -12($fp)
+sw  $t0  -0($fp)
+li  $t0  1
+sw  $t0  -16($fp)
+lw  $t0  -16($fp)
+lw  $t1  -0($fp)
+add  $t2  $t0  $t1
+sw  $t2  -20($fp)
+lw  $t0  -20($fp)
+sw  $t0  -4($fp)
+li  $t0  8
+sw  $t0  -24($fp)
+li  $t0  3
+sw  $t0  -28($fp)
+lw  $t0  -24($fp)
+lw  $t1  -28($fp)
+sub  $t2  $t0  $t1
+sw  $t2  -32($fp)
+lw  $t0  -32($fp)
+sw  $t0  -8($fp)
+li  $t0  1
+sw  $t0  -36($fp)
+li  $t0  9
+sw  $t0  -40($fp)
+lw  $t0  -4($fp)
+lw  $t1  -0($fp)
+add  $t2  $t0  $t1
+sw  $t2  -44($fp)
+lw  $t0  -0($fp)
+lw  $t1  -44($fp)
+add  $t2  $t0  $t1
+sw  $t2  -48($fp)
+lw  $t0  -40($fp)
+lw  $t1  -48($fp)
+add  $t2  $t0  $t1
+sw  $t2  -52($fp)
+lw  $t0  -8($fp)
+lw  $t1  -52($fp)
+add  $t2  $t0  $t1
+sw  $t2  -56($fp)
+lw  $t0  -36($fp)
+lw  $t1  -56($fp)
+add  $t2  $t0  $t1
+sw  $t2  -60($fp)
+lw  $t0  -8($fp)
+lw  $t1  -60($fp)
+add  $t2  $t0  $t1
+sw  $t2  -64($fp)
+lw  $t0  -4($fp)
+lw  $t1  -64($fp)
+add  $t2  $t0  $t1
+sw  $t2  -68($fp)
+lw  $t0  -0($fp)
+lw  $t1  -68($fp)
+add  $t2  $t0  $t1
+sw  $t2  -72($fp)
+lw  $t0  -72($fp)
+sw  $t0  -0($fp)
+lw  $a0  -0($fp)
+li  $v0  1
+syscall
+la  $a0  NewLine
+li  $v0  4
+syscall
+lw  $a0  -4($fp)
+li  $v0  1
+syscall
+la  $a0  NewLine
+li  $v0  4
+syscall
+lw  $a0  -8($fp)
+li  $v0  1
+syscall
+la  $a0  NewLine
+li  $v0  4
+syscall
+
+#Postlog:
+la  $a0  ProgEnd
+li  $v0  4
+syscall
+li  $v0  10
+syscall
+.data
+ProgStart:  .asciiz	"Program Start\n"
+ProgEnd:   .asciiz	"Program  End\n"
+NewLine:   .asciiz	"\n"
+
+MIPS Output:
+Program Start
+27
+2
+5
+Program End
+
+INPUT 2:
+MAIN
+{
+	INTEGER a;
+	a = 1;
+	a = a + a;
+	a = a + a - a;
+	a = (a+a) - a;
+	PRINT a;
+}
+
+Code Outout:
+#Prolog:
+.text
+.globl  main
+main:
+move  $fp  $sp #frame pointer will be start of active stack
+la  $a0  ProgStart
+li  $v0  4
+syscall
+#End of Prolog
+
+li  $t0  1
+sw  $t0  -12($fp)
+lw  $t0  -12($fp)
+sw  $t0  -0($fp)
+li  $t0  1
+sw  $t0  -16($fp)
+lw  $t0  -16($fp)
+lw  $t1  -0($fp)
+add  $t2  $t0  $t1
+sw  $t2  -20($fp)
+lw  $t0  -20($fp)
+sw  $t0  -4($fp)
+li  $t0  8
+sw  $t0  -24($fp)
+li  $t0  3
+sw  $t0  -28($fp)
+lw  $t0  -24($fp)
+lw  $t1  -28($fp)
+sub  $t2  $t0  $t1
+sw  $t2  -32($fp)
+lw  $t0  -32($fp)
+sw  $t0  -8($fp)
+li  $t0  1
+sw  $t0  -36($fp)
+li  $t0  9
+sw  $t0  -40($fp)
+lw  $t0  -4($fp)
+lw  $t1  -0($fp)
+add  $t2  $t0  $t1
+sw  $t2  -44($fp)
+lw  $t0  -0($fp)
+lw  $t1  -44($fp)
+add  $t2  $t0  $t1
+sw  $t2  -48($fp)
+lw  $t0  -40($fp)
+lw  $t1  -48($fp)
+add  $t2  $t0  $t1
+sw  $t2  -52($fp)
+lw  $t0  -8($fp)
+lw  $t1  -52($fp)
+add  $t2  $t0  $t1
+sw  $t2  -56($fp)
+lw  $t0  -36($fp)
+lw  $t1  -56($fp)
+add  $t2  $t0  $t1
+sw  $t2  -60($fp)
+lw  $t0  -8($fp)
+lw  $t1  -60($fp)
+add  $t2  $t0  $t1
+sw  $t2  -64($fp)
+lw  $t0  -4($fp)
+lw  $t1  -64($fp)
+add  $t2  $t0  $t1
+sw  $t2  -68($fp)
+lw  $t0  -0($fp)
+lw  $t1  -68($fp)
+add  $t2  $t0  $t1
+sw  $t2  -72($fp)
+lw  $t0  -72($fp)
+sw  $t0  -0($fp)
+lw  $a0  -0($fp)
+li  $v0  1
+syscall
+la  $a0  NewLine
+li  $v0  4
+syscall
+lw  $a0  -4($fp)
+li  $v0  1
+syscall
+la  $a0  NewLine
+li  $v0  4
+syscall
+lw  $a0  -8($fp)
+li  $v0  1
+syscall
+la  $a0  NewLine
+li  $v0  4
+syscall
+
+#Postlog:
+la  $a0  ProgEnd
+li  $v0  4
+syscall
+li  $v0  10
+syscall
+.data
+ProgStart:  .asciiz	"Program Start\n"
+ProgEnd:   .asciiz	"Program  End\n"
+NewLine:   .asciiz	"\n"
+
+MIPS Output:
+Program Start
+2
+Program End
+
+INPUT 3:
+MAIN
+{
+	INTEGER a;
+	INTEGER b;
+	INTEGER c;
+	INTEGER d;
+
+	a = 1;
+	b = a + 2;
+	c = a + b + 3;
+	d = a + (b - c);
+	
+	PRINT a;
+	PRINT b;
+	PRINT c;
+	PRINT d;
+}
+
+Code Outout:
+#Prolog:
+.text
+.globl  main
+main:
+move  $fp  $sp #frame pointer will be start of active stack
+la  $a0  ProgStart
+li  $v0  4
+syscall
+#End of Prolog
+
+li  $t0  1
+sw  $t0  -16($fp)
+lw  $t0  -16($fp)
+sw  $t0  -0($fp)
+li  $t0  2
+sw  $t0  -20($fp)
+lw  $t0  -0($fp)
+lw  $t1  -20($fp)
+add  $t2  $t0  $t1
+sw  $t2  -24($fp)
+lw  $t0  -24($fp)
+sw  $t0  -4($fp)
+li  $t0  3
+sw  $t0  -28($fp)
+lw  $t0  -4($fp)
+lw  $t1  -28($fp)
+add  $t2  $t0  $t1
+sw  $t2  -32($fp)
+lw  $t0  -0($fp)
+lw  $t1  -32($fp)
+add  $t2  $t0  $t1
+sw  $t2  -36($fp)
+lw  $t0  -36($fp)
+sw  $t0  -8($fp)
+lw  $t0  -4($fp)
+lw  $t1  -8($fp)
+sub  $t2  $t0  $t1
+sw  $t2  -40($fp)
+lw  $t0  -0($fp)
+lw  $t1  -40($fp)
+add  $t2  $t0  $t1
+sw  $t2  -44($fp)
+lw  $t0  -44($fp)
+sw  $t0  -12($fp)
+lw  $a0  -0($fp)
+li  $v0  1
+syscall
+la  $a0  NewLine
+li  $v0  4
+syscall
+lw  $a0  -4($fp)
+li  $v0  1
+syscall
+la  $a0  NewLine
+li  $v0  4
+syscall
+lw  $a0  -8($fp)
+li  $v0  1
+syscall
+la  $a0  NewLine
+li  $v0  4
+syscall
+lw  $a0  -12($fp)
+li  $v0  1
+syscall
+la  $a0  NewLine
+li  $v0  4
+syscall
+
+#Postlog:
+la  $a0  ProgEnd
+li  $v0  4
+syscall
+li  $v0  10
+syscall
+.data
+ProgStart:  .asciiz	"Program Start\n"
+ProgEnd:   .asciiz	"Program  End\n"
+NewLine:   .asciiz	"\n"
+
+MIPS output:
+Program Start
+1
+3
+7
+-3
+Program End

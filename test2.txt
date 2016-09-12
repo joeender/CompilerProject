@@ -1,0 +1,52 @@
+INTEGER funct(INTEGER v, INTEGER x)
+{
+	x = 10000;
+	RETURN x;
+}
+
+MAIN
+{
+	INTEGER coolman;
+	
+	coolman = funct(8,9);
+
+	PRINT coolman;
+	
+	INTEGER ARRAY a[10];
+	INTEGER ARRAY b[10];
+	INTEGER k;
+	BOOL ARRAY d[5];
+	d[0] = TRUE;
+	d[1] = TRUE && FALSE;
+
+	INTEGER c;
+	c = 0;
+	WHILE(c < 10)
+	{
+		b[c] = c;
+		PRINT b[c];
+		c = c + 1;
+	}
+	c = 0;
+	WHILE(c < 10)
+	{
+		a[c] = c;
+		PRINT a[c];
+		c = c + 1;
+	}
+
+	IF(d[0])
+	{
+		//a[3] = 6;
+		a[0] = 888;
+		PRINT (a[0] * a[3]);
+		PRINT 0;
+	}
+	IF(d[0])
+	{
+		PRINT a[1] + b[1];
+	}
+	PRINT a[b[3]];
+}
+	
+

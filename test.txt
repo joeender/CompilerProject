@@ -1,0 +1,58 @@
+BOOL isBigger(INTEGER a, INTEGER b)
+{
+	IF(a < b || a == b)
+	{
+		RETURN FALSE;
+	}
+	RETURN TRUE;
+}
+
+MAIN
+{
+	INTEGER ARRAY list[10];
+	INTEGER a;
+	INTEGER b;
+	INTEGER temp;
+	a = 0;
+	b = 1;
+	BOOL notSorted;
+	notSorted = TRUE;	
+	INTEGER index;
+	index = 0;
+
+	list[0] = 9;
+	list[1] = 15;
+	list[2] = 10;
+	list[3] = 4;
+	list[4] = 2;
+	list[5] = 3;
+	list[6] = 1;
+	list[7] = 8;
+	list[8] = 8;
+	list[9] = 6;
+	
+	WHILE(notSorted){
+		notSorted = FALSE;
+		WHILE(a < 9){
+			IF(isBigger(list[a], list[b])){
+				temp = list[b];
+				list[b] = list[a];
+				list[a] = temp;
+				notSorted = TRUE;
+			}
+			a = a + 1;
+			b = b + 1;
+		}
+		IF(notSorted == TRUE){
+			a = 0;
+			b = 1;
+		}
+	}
+	
+	WHILE(index < 10){
+		PRINT list[index];
+		index = index + 1;
+	}
+}
+	
+

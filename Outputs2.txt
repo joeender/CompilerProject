@@ -1,0 +1,328 @@
+INPUT 1:
+INTEGER multiply(INTEGER a, INTEGER b)
+{
+	RETURN a * b;
+}
+
+INTEGER addition(INTEGER a, INTEGER b)
+{
+	RETURN a + b;
+}
+
+INTEGER black()
+{
+	RETURN 4;
+}
+
+
+MAIN
+{
+	
+	PRINT addition(8,9);
+	PRINT multiply(8,9);
+	PRINT black();
+}
+
+CODEGEN:
+#Prolog:
+.text
+.globl  main
+main:
+move  $fp  $sp #frame pointer will be start of active stack
+la  $a0  ProgStart
+li  $v0  4
+syscall
+#End of Prolog
+
+li  $t0  0
+sw  $t0  -0($fp)
+j  MAIN
+multiply:
+li  $t3  4
+lw  $t1  -0($fp)
+mult  $t3  $t1
+mflo  $t1
+la  $t2  -8($fp)
+sub $t1  $t2  $t1
+sw  $s0  0($t1)
+li  $t3  4
+lw  $t1  -0($fp)
+mult  $t3  $t1
+mflo  $t1
+la  $t2  -12($fp)
+sub $t1  $t2  $t1
+sw  $s1  0($t1)
+lw  $t0  -8($fp)
+lw  $t1  -12($fp)
+mult  $t0  $t1
+mflo  $t2
+sw  $t2  -16($fp)
+lw  $t0  -16($fp)
+sw  $t0  4($sp)
+jr  $ra
+addition:
+li  $t3  4
+lw  $t1  -0($fp)
+mult  $t3  $t1
+mflo  $t1
+la  $t2  -24($fp)
+sub $t1  $t2  $t1
+sw  $s0  0($t1)
+li  $t3  4
+lw  $t1  -0($fp)
+mult  $t3  $t1
+mflo  $t1
+la  $t2  -28($fp)
+sub $t1  $t2  $t1
+sw  $s1  0($t1)
+lw  $t0  -24($fp)
+lw  $t1  -28($fp)
+add  $t2  $t0  $t1
+sw  $t2  -32($fp)
+lw  $t0  -32($fp)
+sw  $t0  4($sp)
+jr  $ra
+black:
+li  $t0  4
+sw  $t0  -40($fp)
+lw  $t0  -40($fp)
+sw  $t0  4($sp)
+jr  $ra
+MAIN:
+li  $t0  8
+sw  $t0  -44($fp)
+lw  $s0  -44($fp)
+li  $t0  9
+sw  $t0  -48($fp)
+lw  $s1  -48($fp)
+jal  addition
+lw  $t0  4($sp)
+sw  $t0  -52($fp)
+lw  $a0  -52($fp)
+li  $v0  1
+syscall
+la  $a0  NewLine
+li  $v0  4
+syscall
+li  $t0  8
+sw  $t0  -56($fp)
+lw  $s0  -56($fp)
+li  $t0  9
+sw  $t0  -60($fp)
+lw  $s1  -60($fp)
+jal  multiply
+lw  $t0  4($sp)
+sw  $t0  -64($fp)
+lw  $a0  -64($fp)
+li  $v0  1
+syscall
+la  $a0  NewLine
+li  $v0  4
+syscall
+jal  black
+lw  $t0  4($sp)
+sw  $t0  -68($fp)
+lw  $a0  -68($fp)
+li  $v0  1
+syscall
+la  $a0  NewLine
+li  $v0  4
+syscall
+
+#Postlog:
+la  $a0  ProgEnd
+li  $v0  4
+syscall
+li  $v0  10
+syscall
+.data
+ProgStart:  .asciiz	"Program Start\n"
+ProgEnd:   .asciiz	"Program  End\n"
+NewLine:   .asciiz	"\n"
+
+MIPS output:
+Program Start
+17
+72
+4
+Program  End
+
+INPUT 2:
+BOOL isBigger(INTEGER a, INTEGER b)
+{
+	IF(a < b || a == b)
+	{
+		RETURN FALSE;
+	}
+	RETURN TRUE;
+}
+
+MAIN
+{
+	INTEGER ARRAY list[10];
+	INTEGER a;
+	INTEGER b;
+	INTEGER temp;
+	a = 0;
+	b = 1;
+	BOOL notSorted;
+	notSorted = TRUE;	
+	INTEGER index;
+	index = 0;
+
+	list[0] = 9;
+	list[1] = 15;
+	list[2] = 10;
+	list[3] = 4;
+	list[4] = 2;
+	list[5] = 3;
+	list[6] = 1;
+	list[7] = 8;
+	list[8] = 8;
+	list[9] = 6;
+	// Sorts the array
+	WHILE(notSorted){
+		notSorted = FALSE;
+		WHILE(a < 9){
+			IF(isBigger(list[a], list[b])){
+				temp = list[b];
+				list[b] = list[a];
+				list[a] = temp;
+				notSorted = TRUE;
+			}
+			a = a + 1;
+			b = b + 1;
+		}
+		IF(notSorted == TRUE){
+			a = 0;
+			b = 1;
+		}
+	}
+	
+	WHILE(index < 10){
+		PRINT list[index];
+		index = index + 1;
+	}
+}
+
+CODEGEN(partial):
+#Prolog:
+.text
+.globl  main
+main:
+move  $fp  $sp #frame pointer will be start of active stack
+la  $a0  ProgStart
+li  $v0  4
+syscall
+#End of Prolog
+
+li  $t0  0
+sw  $t0  -0($fp)
+j  MAIN
+isBigger:
+li  $t3  4
+lw  $t1  -0($fp)
+mult  $t3  $t1
+mflo  $t1
+la  $t2  -8($fp)
+sub $t1  $t2  $t1
+sw  $s0  0($t1)
+li  $t3  4
+lw  $t1  -0($fp)
+mult  $t3  $t1
+mflo  $t1
+la  $t2  -12($fp)
+sub $t1  $t2  $t1
+sw  $s1  0($t1)
+lw  $t0  -8($fp)
+lw  $t1  -12($fp)
+slt  $t2  $t0  $t1
+sw  $t2  -16($fp)
+lw  $t0  -8($fp)
+lw  $t1  -12($fp)
+seq  $t2  $t1  $t0
+sw  $t2  -20($fp)
+lw  $t0  -16($fp)
+lw  $t1  -20($fp)
+or  $t2  $t1  $t0
+sw  $t2  -24($fp)
+lw  $t0  -24($fp)
+beqz  $t0  endIF0
+li  $t0  0
+sw  $t0  -28($fp)
+lw  $t0  -28($fp)
+sw  $t0  4($sp)
+jr  $ra
+endIF0:
+li  $t0  1
+sw  $t0  -32($fp)
+lw  $t0  -32($fp)
+sw  $t0  4($sp)
+jr  $ra
+MAIN:
+li  $t0  10
+sw  $t0  -40($fp)
+li  $t0  0
+sw  $t0  -92($fp)
+li  $t3  4
+lw  $t1  -0($fp)
+mult  $t3  $t1
+mflo  $t1
+la  $t2  -80($fp)
+sub $t1  $t2  $t1
+lw  $t0  -92($fp)
+sw  $t0  0($t1)
+li  $t0  1
+sw  $t0  -96($fp)
+li  $t3  4
+lw  $t1  -0($fp)
+mult  $t3  $t1
+mflo  $t1
+la  $t2  -84($fp)
+sub $t1  $t2  $t1
+lw  $t0  -96($fp)
+sw  $t0  0($t1)
+li  $t0  1
+sw  $t0  -104($fp)
+li  $t3  4
+lw  $t1  -0($fp)
+mult  $t3  $t1
+mflo  $t1
+la  $t2  -100($fp)
+sub $t1  $t2  $t1
+lw  $t0  -104($fp)
+sw  $t0  0($t1)
+li  $t0  0
+sw  $t0  -112($fp)
+li  $t3  4
+lw  $t1  -0($fp)
+mult  $t3  $t1
+mflo  $t1
+la  $t2  -108($fp)
+sub $t1  $t2  $t1
+lw  $t0  -112($fp)
+sw  $t0  0($t1)
+li  $t0  0
+sw  $t0  -116($fp)
+li  $t0  9
+sw  $t0  -120($fp)
+li  $t3  4
+lw  $t1  -116($fp)
+mult  $t3  $t1
+mflo  $t1
+more.....
+
+MIPS output:
+Program Start
+1
+2
+3
+4
+6
+8
+8
+9
+10
+15
+Program  End
+
